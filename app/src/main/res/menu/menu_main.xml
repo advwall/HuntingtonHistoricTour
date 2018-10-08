@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/about"
+        android:title="@string/about"
+        android:background="?android:attr/selectableItemBackground"/>
+
+    <item
+        android:id="@+id/all_locations"
+        android:title="@string/all_locations"
+        android:background="?android:attr/selectableItemBackground"/>
+
+    <item
+        android:id="@+id/tours"
+        android:title="@string/tours"
+        android:background="?android:attr/selectableItemBackground"/>
+
+    <item
+        android:id="@+id/donate"
+        android:title="@string/donate"
+        android:background="?android:attr/selectableItemBackground"/>
+
+    <item
+        android:id="@+id/faq"
+        android:title="@string/faq"
+        android:background="?android:attr/selectableItemBackground"/>
+
+</menu>

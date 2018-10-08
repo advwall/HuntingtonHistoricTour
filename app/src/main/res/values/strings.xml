@@ -1,0 +1,66 @@
+<resources>
+
+
+    <string name="app_name">Huntington Historic Tours</string>
+
+    <string name="home">Home</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+    <string name="popular_places">Popular Places</string>
+    <string name="civil_war">Civil War</string>
+    <string name="industry">Industry</string>
+    <string name="food">food</string>
+    <string name="coffee">coffee</string>
+
+    <string name="hotels">Hotels</string>
+    <string name="bus">Bus</string>
+    <string name="airports">Airports</string>
+    <string name="hospitals">Hospitals</string>
+    <string name="transportation">Transportation</string>
+
+    <!-- Historic Civil War battles -->
+    <string name="topkapi_palace">Topkapı Palace</string>
+    <string name="maidens_tower">Maiden\'s Tower</string>
+    <string name="blue_mosque">Blue Mosque</string>
+    <string name="spice_bazaar">Spice Bazaar</string>
+    <string name="yedikule_fortress">Yedikule Fortress</string>
+    <string name="pera_museum">Pera Museum</string>
+    <string name="istanbul_modern">İstanbul Modern</string>
+    <string name="nusret">Nusr-Et</string>
+    <string name="mall_of_istanbul">Mall of İstanbul</string>
+    <string name="armada_hotel">Armada Hotel</string>
+
+    <!-- Historic Industry -->
+    <string name="topkapi_palace_hook">İstanbul\'s center for 400 years</string>
+    <string name="maidens_tower_hook">Source of legends</string>
+    <string name="blue_mosque_hook">A historic masterpiece</string>
+    <string name="spice_bazaar_hook">Most colorful bazaar in Turkey</string>
+    <string name="yedikule_fortress_hook">Dungeons of horror in Ottoman</string>
+    <string name="pera_museum_hook">Art in Beyoğlu</string>
+    <string name="istanbul_modern_hook">Modern face of İstanbul</string>
+    <string name="nusret_hook">Wordly famous saltbae</string>
+    <string name="mall_of_istanbul_hook">İstanbul\'s shopping star</string>
+    <string name="armada_hotel_hook">A great experience</string>
+
+
+    <!-- Drawer Menu items strings-->
+    <string name="about">About This App</string>
+    <string name="all_locations">All Locations</string>
+    <string name="tours">Tours</string>
+    <string name="donate">Donate</string>
+    <string name="faq">FAQ</string>
+
+    <!-- Strings for main_activity.xml-->
+    <string name="welcome">Welcome to Huntington, WV: An Exceptional City!</string>
+    <string name="learn">Get to know our history.</string>
+    <string name="picture_description">Huntington\'s Skyline ; Taken from Ohio. </string>
+
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Map</string>
+</resources>
+
+

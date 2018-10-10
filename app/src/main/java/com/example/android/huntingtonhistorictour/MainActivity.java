@@ -1,8 +1,19 @@
 package com.example.android.huntingtonhistorictour;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -16,130 +27,321 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private ViewPager mViewPager;
+    List<CardAdapter> recyclerList;
+    private static final String ITEM_ID = "selected";
+    private static final String FIRST_TIME = "first_time";
+    private int mSelectedId;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
+    private boolean mDrawerIsSeen = false;
+    private boolean isStartup = true;
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putInt(ITEM_ID, mSelectedId);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.drawer_layout);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        NavigationView navDrawer = findViewById(R.id.main_drawer);
+        navDrawer.setNavigationItemSelectedListener(this);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+        mDrawerLayout = findViewById(R.id.drawerLayout);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+
+
+        mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+
+        //in order to save instance state in case of orientation change:
+        if (savedInstanceState != null) {
+
+            savedInstanceState.getInt(ITEM_ID, mSelectedId);
+            if (!isStartup) {
+                ((FrameLayout) findViewById(R.id.container)).removeAllViews();
             }
-        });
+            isStartup = true;
+            navigate(mSelectedId);
+        }
+
+        if (!drawerSeen()) {
+
+            showDrawer();
+
+        } else {
+
+            hideDrawer();
+        }
+
+        navigate(mSelectedId);
+
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Add recycler arraylist:
+
+        recyclerList = new ArrayList<>();
+        recyclerList.add(new CardAdapter(getString(R.string.topkapi_palace),
+                getString(R.string.topkapi_palace_hook), getString(R.string.topkapi_palace_short_address),
+                R.drawable.topkapi_palace, getString(R.string.topkapi_palace_description),
+                getString(R.string.topkapi_palace_long_address), getString(R.string.topkapi_palace_work_hours), 28.983400, 41.011843,
+                getString(R.string.topkapi_palace_phone), getString(R.string.topkapi_palace_web)));
+
+        recyclerList.add(new CardAdapter(getString(R.string.maidens_tower), getString(R.string.maidens_tower_hook),
+                getString(R.string.maidens_tower_short_address), R.drawable.maidens_tower, getString(R.string.maidens_tower_description),
+                getString(R.string.maidens_tower_long_address), getString(R.string.maidens_tower_work_hours), 29.004153, 41.022077,
+                getString(R.string.maidens_tower_phone), getString(R.string.maidens_tower_web)));
+
+        recyclerList.add(new CardAdapter(getString(R.string.blue_mosque), getString(R.string.blue_mosque_hook),
+                getString(R.string.blue_mosque_short_address), R.drawable.blue_mosque, getString(R.string.blue_mosque_description),
+                getString(R.string.blue_mosque_long_address), getString(R.string.blue_mosque_work_hours), 28.976857, 41.006365,
+                getString(R.string.blue_mosque_phone), getString(R.string.blue_mosque_web)));
+
+        recyclerList.add(new CardAdapter(getString(R.string.spice_bazaar), getString(R.string.spice_bazaar_hook),
+                getString(R.string.spice_bazaar_short_address), R.drawable.spice_bazaar, getString(R.string.spice_bazaar_description),
+                getString(R.string.spice_bazaar_long_address), getString(R.string.spice_bazaar_work_hours), 28.970305, 41.017617,
+                getString(R.string.spice_bazaar_phone), getString(R.string.spice_bazaar_web)));
+
+        recyclerList.add(new CardAdapter(getString(R.string.yedikule_fortress), getString(R.string.yedikule_fortress_hook),
+                getString(R.string.yedikule_fortress_short_address), R.drawable.yedikule_fortress, getString(R.string.yedikule_fortress_description),
+                getString(R.string.yedikule_fortress_long_address), getString(R.string.yedikule_fortress_work_hours), 28.921123, 40.994273,
+                getString(R.string.yedikule_fortress_phone), getString(R.string.yedikule_fortress_web)));
+
+        recyclerList.add(new CardAdapter(getString(R.string.pera_museum), getString(R.string.pera_museum_hook),
+                getString(R.string.pera_museum_short_address), R.drawable.pera_museum, getString(R.string.pera_museum_description),
+                getString(R.string.pera_museum_long_address), getString(R.string.pera_museum_work_hours), 28.975200, 41.032642,
+                getString(R.string.pera_museum_phone), getString(R.string.pera_museum_web)));
+
+        recyclerList.add(new CardAdapter(getString(R.string.istanbul_modern), getString(R.string.istanbul_modern_hook),
+                getString(R.string.istanbul_modern_short_address), R.drawable.istanbul_modern, getString(R.string.istanbul_modern_description),
+                getString(R.string.istanbul_modern_long_address), getString(R.string.yedikule_fortress_work_hours), 28.984402, 41.027666,
+                getString(R.string.istanbul_modern_phone), getString(R.string.istanbul_modern_web)));
+
+        recyclerList.add(new CardAdapter(getString(R.string.nusret), getString(R.string.nusret_hook), getString(R.string.nusret_short_address), R.drawable.nusret_steakhouse,
+                getString(R.string.nusret_long_address), getString(R.string.nusret_work_hours), 29.033478, 41.081435, getString(R.string.nusret_phone),
+                getString(R.string.nusret_web)));
+
+        recyclerList.add(new CardAdapter(getString(R.string.mall_of_istanbul), getString(R.string.mall_of_istanbul_hook),
+                getString(R.string.mall_of_istanbul_short_address), R.drawable.mall_of_istanbul, getString(R.string.mall_of_istanbul_long_address),
+                getString(R.string.mall_of_istanbul_work_hours), 28.807746, 41.063819, getString(R.string.mall_of_istanbul_phone),
+                getString(R.string.mall_of_istanbul_web)));
+
+        recyclerList.add(new CardAdapter(getString(R.string.armada_hotel), getString(R.string.armada_hotel_hook),
+                getString(R.string.armada_hotel_short_address), R.drawable.armada_hotel, getString(R.string.armada_hotel_long_address),
+                getString(R.string.armada_hotel_price), 28.981463, 41.004760, getString(R.string.armada_hotel_phone),
+                getString(R.string.armada_hotel_web)));
+
+        int mNoOfColumns = com.example.android.tourguideapp.Utility.calculateNoOfColumns(getApplicationContext());
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(this, recyclerList);
+
+        //Shuffle the cardView positions:
+        //(for the next two lines of code, credit goes to: https://stackoverflow.com/questions/38708377/select-random-item-in-cardview)
+        long seed = System.nanoTime();
+        Collections.shuffle(recyclerList, new Random(seed));
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, mNoOfColumns);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+        recyclerView.setAdapter(recyclerViewAdapter);
 
     }
 
+    private boolean drawerSeen() {
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        mDrawerIsSeen = sharedPreferences.getBoolean(FIRST_TIME, false);
+        return mDrawerIsSeen;
+    }
+
+    private void markIfDrawerIsSeen() {
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mDrawerIsSeen = true;
+        sharedPreferences.edit().putBoolean(FIRST_TIME, mDrawerIsSeen).apply();
+
+    }
+
+    private void showDrawer() {
+
+        mDrawerLayout.openDrawer(GravityCompat.START);
+        markIfDrawerIsSeen();
+    }
+
+    private void hideDrawer() {
+
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+    }
+
+    public void navigate(int mSelectedId) {
+
+
+        if (mSelectedId == R.id.popular_places) {
+            if (isStartup) {
+                ((FrameLayout) findViewById(R.id.container)).removeAllViews();
+                isStartup = false;
+            }
+
+            com.example.android.huntingtonhistorictour.CivilWarFragment civilWarFragment = new com.example.android.huntingtonhistorictour.CivilWarFragment();
+            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, civilWarFragment).addToBackStack("Null").commit();
+
+        } else if (mSelectedId == R.id.museums) {
+            if (isStartup) {
+                ((FrameLayout) findViewById(R.id.container)).removeAllViews();
+                isStartup = false;
+            }
+            com.example.android.huntingtonhistorictour.MuseumFragment museumFragment = new com.example.android.huntingtonhistorictour.MuseumFragment();
+            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, museumFragment).addToBackStack("Null").commit();
+
+        } else if (mSelectedId == R.id.cafe_restaurant) {
+            if (isStartup) {
+                ((FrameLayout) findViewById(R.id.container)).removeAllViews();
+                isStartup = false;
+            }
+            com.example.android.huntingtonhistorictour.CafeRestaurantFragment cafeRestaurantFragment = new com.example.android.huntingtonhistorictour.CafeRestaurantFragment();
+            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, cafeRestaurantFragment).addToBackStack("Null").commit();
+
+        } else if (mSelectedId == R.id.cinema) {
+            if (isStartup) {
+                ((FrameLayout) findViewById(R.id.container)).removeAllViews();
+                isStartup = false;
+            }
+            com.example.android.huntingtonhistorictour.CinemaFragment cinemaFragment = new com.example.android.huntingtonhistorictour.CinemaFragment();
+            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, cinemaFragment).addToBackStack("Null").commit();
+
+        } else if (mSelectedId == R.id.shopping) {
+            if (isStartup) {
+                ((FrameLayout) findViewById(R.id.container)).removeAllViews();
+                isStartup = false;
+            }
+            com.example.android.huntingtonhistorictour.ShoppingFragment shoppingFragment = new com.example.android.huntingtonhistorictour.ShoppingFragment();
+            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, shoppingFragment).addToBackStack("Null").commit();
+
+        } else if (mSelectedId == R.id.hotels) {
+            if (isStartup) {
+                ((FrameLayout) findViewById(R.id.container)).removeAllViews();
+                isStartup = false;
+            }
+            com.example.android.huntingtonhistorictour.HotelFragment hotelFragment = new com.example.android.huntingtonhistorictour.HotelFragment();
+            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, hotelFragment).addToBackStack("Null").commit();
+
+        } else if (mSelectedId == R.id.bus) {
+            if (isStartup) {
+                ((FrameLayout) findViewById(R.id.container)).removeAllViews();
+                isStartup = false;
+            }
+            com.example.android.huntingtonhistorictour.BusFragment busFragment = new com.example.android.huntingtonhistorictour.BusFragment();
+            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, busFragment).addToBackStack("Null").commit();
+
+        } else if (mSelectedId == R.id.airports) {
+            if (isStartup) {
+                ((FrameLayout) findViewById(R.id.container)).removeAllViews();
+                isStartup = false;
+            }
+            com.example.android.huntingtonhistorictour.AirportFragment airportFragment = new com.example.android.huntingtonhistorictour.AirportFragment();
+            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, airportFragment).addToBackStack("Null").commit();
+
+        } else if (mSelectedId == R.id.hospitals) {
+            if (isStartup) {
+                ((FrameLayout) findViewById(R.id.container)).removeAllViews();
+                isStartup = false;
+            }
+            com.example.android.huntingtonhistorictour.HospitalFragment hospitalFragment = new com.example.android.huntingtonhistorictour.HospitalFragment();
+            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, hospitalFragment).addToBackStack("Null").commit();
+
+        }
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+
+    }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+
+    public void onConfigurationChanged(Configuration newConfig) {
+
+        super.onConfigurationChanged(newConfig);
+        mToggle.onConfigurationChanged(newConfig);
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (mToggle.onOptionsItemSelected(item)) {
+
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
+    @Override
 
-        public PlaceholderFragment() {
-        }
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
+        item.setChecked(true);
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
+        mSelectedId = item.getItemId();
+
+        navigate(mSelectedId);
+
+        return true;
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
+    @Override
+    public void onBackPressed() {
 
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
-        }
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
 
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+
+            do {
+                if (!isStartup) {
+
+                    //recreate after removeAllFiles command:
+                    startActivity(new Intent(this, MainActivity.class));
+                    super.onBackPressed();
+                    isStartup = true;
+
+
+                } else {
+
+                    super.onBackPressed();
+                    isStartup = false;
+
+                }
+            } while (isStartup);
+
         }
     }
 }

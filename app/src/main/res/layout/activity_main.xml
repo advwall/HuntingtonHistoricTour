@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_content"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/main_content"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:fitsSystemWindows="true"
+    android:orientation="vertical"
+tools:context=".MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -29,18 +31,137 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/container"
+    <ImageView
+        android:layout_below="@+id/appbar"
+        android:id="@+id/cover_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_height="250dp"
+        android:src="@drawable/skyline"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/home"
+        android:paddingBottom="@dimen/standard_padding"
+        />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
+    <TextView
+        android:layout_below="@+id/cover_image"
+        android:id="@+id/welcome"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:text="@string/welcome"
+        android:gravity="center"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/learn"
+        android:layout_below="@+id/welcome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/standard_padding"
+        android:text="@string/learn"
+        android:gravity="center"
+        />
 
-</android.support.design.widget.CoordinatorLayout>
+    <LinearLayout
+        android:id="@+id/buttonSetOne"
+        android:layout_below="@+id/learn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/standard_padding"
+        android:paddingEnd="@dimen/standard_padding"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/settlement"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:padding="@dimen/standard_padding"
+            tools:text="@string/settlement"/>
+
+        <Button
+            android:id="@+id/civil_war"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            tools:text="@string/civil_war"
+            android:padding="@dimen/standard_padding"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonSetTwo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/buttonSetOne"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/standard_padding"
+        android:paddingEnd="@dimen/standard_padding"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/industry"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:adjustViewBounds="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            tools:text="@string/industry"
+            android:padding="@dimen/standard_padding" />
+
+        <Button
+            android:id="@+id/home"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            tools:text="@string/twentieth_century"
+            android:padding="@dimen/standard_padding"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonSetThree"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/buttonSetTwo"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/standard_padding"
+        android:paddingEnd="@dimen/standard_padding"
+        android:layout_marginBottom="@dimen/standard_padding"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/all_locations"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:adjustViewBounds="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            tools:text="@string/all_locations"
+            android:padding="@dimen/standard_padding" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

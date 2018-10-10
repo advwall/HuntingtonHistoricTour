@@ -7,12 +7,6 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
 
-    <string name="popular_places">Popular Places</string>
-    <string name="civil_war">Civil War</string>
-    <string name="industry">Industry</string>
-    <string name="food">food</string>
-    <string name="coffee">coffee</string>
-
     <string name="hotels">Hotels</string>
     <string name="bus">Bus</string>
     <string name="airports">Airports</string>
@@ -55,6 +49,10 @@
     <string name="welcome">Welcome to Huntington, WV: An Exceptional City!</string>
     <string name="learn">Get to know our history.</string>
     <string name="picture_description">Huntington\'s Skyline ; Taken from Ohio. </string>
+    <string name="civil_war">Civil War</string>
+    <string name="industry">Industry</string>
+    <string name="twentieth_century">Twentieth Century</string>
+    <string name="settlement">Early Settlement</string>
 
 
 

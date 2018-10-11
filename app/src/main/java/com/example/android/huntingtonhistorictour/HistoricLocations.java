@@ -1,7 +1,5 @@
 package com.example.android.huntingtonhistorictour;
 
-package com.example.android.tourguideapp;
-
 /**
  * Created by Cansu on 10.04.2018.
  */
@@ -21,7 +19,7 @@ public class HistoricLocations {
 
     //Public constructor of the Place object for Popular Places and Museums:
 
-    public Place(String nameOfPlace, String shortAddress, String description, String longAddress,
+    public HistoricLocations(String nameOfPlace, String shortAddress, String description, String longAddress,
                  String workingHoursOrPrice, double longitude, double latitude, String phone, String webPage, int imageResourceId){
 
         mNameOfPlace = nameOfPlace;
@@ -38,7 +36,7 @@ public class HistoricLocations {
     }
     //Public constructor of the Place object for Cafe & Restaurant, Cinema, Hospital, Shopping and Hotel:
 
-    public Place(String nameOfPlace, String shortAddress, String longAddress,
+    public HistoricLocations(String nameOfPlace, String shortAddress, String longAddress,
                  String workingHoursOrPrice, double longitude, double latitude, String phone, String webPage, int imageResourceId){
 
         mNameOfPlace = nameOfPlace;
@@ -56,7 +54,7 @@ public class HistoricLocations {
 
     //Public constructor of the Place object for Cinema and Airport:
 
-    public Place(String nameOfPlace, String shortAddress, String longAddress,
+    public HistoricLocations(String nameOfPlace, String shortAddress, String longAddress,
                  double longitude, double latitude, String phone, String webPage, int imageResourceId){
 
         mNameOfPlace = nameOfPlace;
@@ -73,7 +71,7 @@ public class HistoricLocations {
 
     //Public constructor of the Place object for Bus:
 
-    public Place(String nameOfPlace, String shortAddress, String longAddress, double longitude, double latitude,
+    public HistoricLocations(String nameOfPlace, String shortAddress, String longAddress, double longitude, double latitude,
                  String phone, int imageResourceId){
 
         mNameOfPlace = nameOfPlace;

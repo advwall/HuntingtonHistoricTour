@@ -1,41 +1,29 @@
 <resources>
-
-
     <string name="app_name">Huntington Historic Tours</string>
-
     <string name="home">Home</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
 
-    <string name="hotels">Hotels</string>
-    <string name="bus">Bus</string>
-    <string name="airports">Airports</string>
-    <string name="hospitals">Hospitals</string>
-    <string name="transportation">Transportation</string>
+    <!-- Early Settlement -->
+    <string name="holderby">Holderby\'s Landing</string>
+    <string name="guyandotte">Guyandotte</string>
 
-    <!-- Historic Civil War battles -->
-    <string name="topkapi_palace">Topkapı Palace</string>
-    <string name="maidens_tower">Maiden\'s Tower</string>
-    <string name="blue_mosque">Blue Mosque</string>
-    <string name="spice_bazaar">Spice Bazaar</string>
-    <string name="yedikule_fortress">Yedikule Fortress</string>
-    <string name="pera_museum">Pera Museum</string>
-    <string name="istanbul_modern">İstanbul Modern</string>
-    <string name="nusret">Nusr-Et</string>
-    <string name="mall_of_istanbul">Mall of İstanbul</string>
-    <string name="armada_hotel">Armada Hotel</string>
+    <!-- Civil War Era -->
+    <string name="guyan_battle">Battle for Guyandotte</string>
+    <string name="bville">Barboursville</string>
+    <string name="church">First Congregational Church</string>
 
     <!-- Historic Industry -->
     <string name="topkapi_palace_hook">İstanbul\'s center for 400 years</string>
     <string name="maidens_tower_hook">Source of legends</string>
     <string name="blue_mosque_hook">A historic masterpiece</string>
     <string name="spice_bazaar_hook">Most colorful bazaar in Turkey</string>
-    <string name="yedikule_fortress_hook">Dungeons of horror in Ottoman</string>
-    <string name="pera_museum_hook">Art in Beyoğlu</string>
-    <string name="istanbul_modern_hook">Modern face of İstanbul</string>
-    <string name="nusret_hook">Wordly famous saltbae</string>
-    <string name="mall_of_istanbul_hook">İstanbul\'s shopping star</string>
-    <string name="armada_hotel_hook">A great experience</string>
+
+    <!-- Twentieth Century -->
+    <string name="special_metals">Special Metals</string>
+    <string name="ritter">Ritter Park</string>
+    <string name="football">Marshall University Plane Crash</string>
+    <string name="art">Huntington Museum of Art</string>
 
 
     <!-- Drawer Menu items strings-->

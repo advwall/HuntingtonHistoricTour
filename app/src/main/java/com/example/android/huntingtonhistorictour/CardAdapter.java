@@ -2,57 +2,41 @@ package com.example.android.huntingtonhistorictour;
 
 import android.view.View;
 import android.widget.Adapter;
-import android.widget.AdapterView;
 
-public class CardAdapter extends AdapterView {
+public class CardAdapter {
 
     //This class is for creating CardView arrays.
 
-    private String placeName;
+    private String name;
     private String placeType;
-    private int imageResourceID;
-    private String placeDescription;
     private String shortAddress;
+    private int imageResourceID;
+    private String description;
     private String longAddress;
     private String workingHoursOrPrice;
     private double longitude;
     private double latitude;
-    private String phoneNumber;
+    private String phone;
     private String webPage;
 
 
-    public Card(String name, String hookSentence, int imageResourceID, String description,
-                String longAddress, String workingHoursOrPrice, double longitude, double latitude, String phone, String webpage){
-
-        placeType = placeType;
-        imageResourceID = imageResourceID;
-        placeDescription = placeDescription;
-        shortAddress = shortAddress;
-        longAddress = longAddress;
-        workingHoursOrPrice = workingHoursOrPrice;
-        longitude = longitude;
-        latitude = latitude;
-        phoneNumber = phoneNumber;
-        webPage = webpage;
-    }
-
     public String getName() {
-        return placeName;
+        return name;
     }
 
-    public String getPlaceType() {
+    String getPlaceType() {
         return placeType;
     }
 
     public String getDescription() {
-        return placeDescription;
+        return description;
     }
 
-    public String getLongAddress() {
+    public double getLongAddress() {
         return longitude;
     }
 
-    public String getWorkingHoursOrPrice() {
+    String getWorkingHoursOrPrice() {
         return workingHoursOrPrice;
     }
 
@@ -65,7 +49,7 @@ public class CardAdapter extends AdapterView {
     }
 
     public String getPhone() {
-        return phoneNumber;
+        return webPage;
     }
 
     public String getWebPage() {

@@ -2,8 +2,6 @@ package com.example.android.huntingtonhistorictour;
 
 import android.widget.ArrayAdapter;
 
-package com.example.android.tourguideapp;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

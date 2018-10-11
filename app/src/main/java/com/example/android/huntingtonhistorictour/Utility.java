@@ -1,4 +1,4 @@
-package com.example.android.tourguideapp;
+package com.example.android.huntingtonhistorictour;
 
 import android.content.Context;
 import android.util.DisplayMetrics;

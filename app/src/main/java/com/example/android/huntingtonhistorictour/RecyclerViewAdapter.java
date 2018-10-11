@@ -1,7 +1,5 @@
 package com.example.android.huntingtonhistorictour;
 
-package com.example.android.tourguideapp;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -61,7 +59,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         double latitude = mData.get(position).getLatitude();
 
 
-        final Intent detailsIntent = new Intent(mContext, PlaceDetailsActivity.class);
+        final Intent detailsIntent = new Intent(mContext, HistoricDetailsActivity.class);
 
         Bundle bun = new Bundle();
 

@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.android.huntingtonhistorictour.fragments.SimpleFragmentPagerAdapter;
 
 
 public class HistoricDetailsActivity extends AppCompatActivity {
@@ -50,7 +51,7 @@ public class HistoricDetailsActivity extends AppCompatActivity {
 
         ViewPager viewPager = findViewById(R.id.viewpager);
 
-        com.example.android.huntingtonhistorictour.SimpleFragmentPagerAdapter adapter = new com.example.android.huntingtonhistorictour.SimpleFragmentPagerAdapter(getSupportFragmentManager());
+        SimpleFragmentPagerAdapter adapter = new SimpleFragmentPagerAdapter(getSupportFragmentManager());
 
         viewPager.setAdapter(adapter);
 
